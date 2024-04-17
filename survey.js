@@ -5,6 +5,8 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
+const profile = {};
+
 
 rl.question("What's your name? Nicknames are also acceptable :)\n", (answer1) => {
   profile.name = answer1;
