@@ -5,39 +5,30 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-let profile = {};
 
-const questions = [
-  "What's your name? Nicknames are also acceptable :)",
-  "What's an activity you like doing?",
-  "What do you listen to while doing that?",
-  "Which meal is your favourite (eg: dinner, brunch, etc.)?",
-  "What's your favourite thing to eat for that meal?",
-  "Which sport is your absolute favourite?",
-  "What is your superpower? In a few words, tell us what you are amazing at!"
-];
-
-const askQuestion = (index) => {
-  rl.question(questions[index], (answer) => {
-    profile[questions[index]] = answer;
-    if (index < questions.length - 1) {
-      askQuestion(index + 1);
-    } else {
-      generateProfile();
-      rl.close();
-    }
+rl.question("What's your name? Nicknames are also acceptable :)\n", (answer1) => {
+  profile.name = answer1;
+  rl.question("What's an activity you like doing?\n", (answer2) => {
+    profile.activity = answer2;
+    rl.question("What do you listen to while doing that?\n", (answer3) => {
+      profile.music = answer3;
+      rl.question("Which meal is your favourite (eg: dinner, brunch, etc.)?\n", (answer4) => {
+        profile.meal = answer4;
+        rl.question("What's your favourite thing to eat for that meal?\n", (answer5) => {
+          profile.favoriteFood = answer5;
+          rl.question("Which sport is your absolute favourite?\n", (answer6) => {
+            profile.sport = answer6;
+            rl.question("What is your superpower? In a few words, tell us what you are amazing at!\n", (answer7) => {
+              profile.superpower = answer7;
+              console.log("\n--- Your Profile ---");
+              Object.entries(profile).forEach(([question, answer]) => {
+                console.log(`${question}: ${answer}`);
+              });
+              rl.close();
+            });
+          });
+        });
+      });
+    });
   });
-};
-
-const generateProfile = () => {
-  console.log("\nHere's your profile:\n");
-  console.log(`Name: ${profile[questions[0]]}`);
-  console.log(`Activity: ${profile[questions[1]]}`);
-  console.log(`Music: ${profile[questions[2]]}`);
-  console.log(`Favorite Meal Time: ${profile[questions[3]]}`);
-  console.log(`Favorite Meal: ${profile[questions[4]]}`);
-  console.log(`Favorite Sport: ${profile[questions[5]]}`);
-  console.log(`Superpower: ${profile[questions[6]]}\n`);
-};
-
-askQuestion(0);
+});
